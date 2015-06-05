@@ -1,0 +1,41 @@
+ Comment item 0
+ Java source file for JUnit testing 
+ 
+ Do NOT change
+ 
+ package declaration 
+ #1 import to the checker.sourceparser package 
+ #2 import to the checker.Reference class 
+ #3 import standard java package 
+ #4 import test_sources 
+ #5 import class from the same package
+ #6 import class that do not exist 
+Single line comment test
+				Single line test with tabs
+The first block comment
+ 1.block: Stars * ** *** inside block comment
+ 1.block: empty line with star follows (just empty line)
+ 
+ 1.block: empty line with two stars follow (one visible)
+ *
+ 1. block: short line follows (just a)
+ a
+ 1.block: long line follows
+ what ever key words there are like import or package don't matter at all
+ 1.block: line without star follows (there should not be next line..)
+ The last line of block comment (empty line follows )
+	 
+ Block comment at same line: before 
+ Block comment at same line: after 
+ Comment at same line: before (followed decl. should appear) int number3 = 0;
+ Comment line at same line: after 
+ Testing special parsing cases 
+ All of them should be bypassed 
+ because otherwise they will confuse parsing 
+ a) Testing key words and marks inside quotation 
+ b) Testing quotation inside quotation 
+ c) Testing special marks inside apostrophe 
+ d) This should be visible 
+ e) Testing apostrophe inside apostrophe 
+ f) Testing apostrophe inside quotation 
+ Last line of test class 

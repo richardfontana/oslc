@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project basedir="." default="build" name="development">
+    <property environment="env"/>
+    <property name="debug" value="false"/>
+    <property name="debuglevel" value="source,lines,vars"/>
+    <property name="target" value="1.5"/>
+    <property name="source" value="1.5"/>
+    <property name="destdir" value="classes/"/>
+    <property name="resourcedir" value="resources"/>
+    <property name="unittestdir" value="unittests"/>
+    <property name="documentation" value="documentation"/>
+
+    <property name="jar.output.file" value="oslc2.jar"/>
+
+    <property name="junit.output.dir" value="junit"/>
+
+    <path id="JUnit 4.libraryclasspath">
+    <pathelement location="junit-4.1.jar"/>
+    </path>
+
+    <path id="swing-layout.libraryclasspath">
+    <pathelement location="swing-layout-1.0.jar"/>
+    </path>
+	
+    <path id="swing-worker.libraryclasspath">
+    <pathelement location="swing-worker.jar"/>
+    </path>
+
+    <path id="easyprint.libraryclasspath">
+    <pathelement location="easyprint.jar"/>
+    </path>
+
+    <path id="javatar.libraryclasspath">
+    <pathelement location="activation.jar"/>
+    <pathelement location="tar.jar"/>
+    </path>
+
+    <path id="jhbasic.libraryclasspath">
+    <pathelement location="jhbasic.jar"/>
+    </path>
+
+    <path id="development.classpath">
+        <pathelement location="classes"/>
+        <path refid="JUnit 4.libraryclasspath"/>
+        <path refid="swing-layout.libraryclasspath"/>
+        <path refid="swing-worker.libraryclasspath"/>
+        <path refid="javatar.libraryclasspath"/>
+        <path refid="easyprint.libraryclasspath"/>
+        <path refid="jhbasic.libraryclasspath"/>
+    </path>
+
+    <target name="clean">
+        <delete includeemptydirs="true" quiet="true">
+            <fileset dir="${destdir}"/>
+            <fileset dir="junit"/>
+        </delete>
+    </target>
+	
+    <target depends="clean" name="cleanall"/>
+	
+    <target depends="build-subprojects,build-project" name="build"/>
+	
+    <target name="build-subprojects"/>
+	
+    <target name="build-project">
+        <echo message="${ant.project.name}: ${ant.file}"/>
+        <mkdir dir="${destdir}"/>
+        <javac debug="${debug}" debuglevel="${debuglevel}"
+               destdir="${destdir}" source="${source}"
+               target="${target}">
+            <src path="checker"/>
+            <src path="unittests"/>
+            <classpath refid="development.classpath"/>
+        </javac>
+        <copy todir="${destdir}/resources">
+            <fileset dir="${resourcedir}"/>
+        </copy>
+        <jar destfile="${jar.output.file}">
+            <fileset dir="${destdir}" excludes="**/*Test*.class"/>
+            <fileset dir="." includes="${documentation}/" excludes="*"/>
+            <manifest>
+                <attribute name="Main-Class" value="checker.LicenseChecker"/>
+		<!-- <attribute name="Main-Class" value="checker.gui.LicenseMain"/> -->
+		<attribute name="Class-Path" value="swing-layout-1.0.jar swing-worker.jar activation.jar tar.jar easyprint.jar jhbasic.jar" />
+            </manifest>
+        </jar>
+    </target>
+
+    <target depends="build" name="tests">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <classpath refid="development.classpath"/>
+            <batchtest fork="yes" todir="${junit.output.dir}">
+                <fileset dir=".">
+                    <include name="**/*Test*.java"/>
+                </fileset>
+            </batchtest>
+        </junit>
+    </target>
+	
+    <target depends="tests" name="testreport">
+        <junitreport todir="${junit.output.dir}">
+            <fileset dir="${junit.output.dir}">
+                <include name="TEST-*.xml"/>
+            </fileset>
+            <report format="noframes" todir="${junit.output.dir}"/>
+        </junitreport>
+    </target>
+
+    <target depends="build" name="LicenseChecker">
+        <java classname="checker.LicenseChecker" failonerror="true" fork="yes">
+            <arg line="test_sources/"/>
+            <classpath refid="development.classpath"/>
+        </java>
+    </target>
+
+    <target depends="build" name="selftest">
+	<java classname="checker.LicenseChecker" failonerror="true" fork="yes">
+	    <arg line="-s -x test_sources/ ."/>
+	    <classpath refid="development.classpath"/>
+	</java>
+    </target>
+
+</project>

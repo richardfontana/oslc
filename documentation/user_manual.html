@@ -1,0 +1,262 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+    <head>
+        <title>OSLC 2.0 User Manual</title>
+        <link rel="stylesheet" type="text/css" href="style.css"/>
+    </head>
+    
+    <body>
+        <h1 class="title" align="left"><a name="top"/>Open Source License Checker 2.0 User Manual</h1>
+        <p class="cmd">go to <a href="readme.html">ReadMe</a></p>
+        <br/>
+        
+        <table cellspacing="2" cellpadding="1" class="toc" width="600px">
+            <thead>
+                <tr>
+                    <th class="toc" align="left">Table of Contents:</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="heading">
+                        <ol>
+                            <li><a href="#start">Starting the Application</a></li>
+                            <ol type="i" value="1" dir="LTR" >
+                                <li><a href="#start_1">Start Command Line Operation</a></li>
+                                <li><a href="#start_2">Start GUI Application</a></li>
+                            </ol>
+                            <li><a href="#command">Commandline Guide</a></li>
+                            <li><a href="#gui">GUI Guide</a></li>
+                            <ol type="i" value="1" dir="LTR" >
+                                <li><a href="#gui_1">Open a Source file / Directory / Source package</a></li>
+                                <li><a href="#gui_2">The Summary Pane</a></li>
+                                <li><a href="#gui_3">The Source Tree Browser Pane</a></li>
+                                <li><a href="#gui_4">The File Display Pane</a></li>
+                                <li><a href="#gui_5">Other Options</a></li>
+                            </ol>
+                            <li><a href="#set_env">Java VM Settings</a></li>
+                            <li><a href="#match">License Matching Algorithm</a></li>
+                            <li><a href="#license_name">License Naming Convention</a></li>
+                        </ol>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <p class="heading1"><a name="start"></a>1. Starting the Application</p>
+        <p class="heading2"><a name="start_1"/>1.1 Start Command Line Operation</p>
+        <table width="600px" border="0" cellpadding="1" cellspacing="1">
+            <tr class="row_grey">
+                <td>
+                    <ol type="square">
+                        <li class="normal">
+                            <p class="command_txt"><b>Under Windows: </b></p>
+                            <p class="command_txt">click <b>Start</b> -> click <b>Run</b> -> input <b>cmd</b> and click <b>OK</b></p>
+                            <p class="command_txt">go to the directory where you unpack the downloaded package:</p>
+                            <p class="command_txt">in command line type <b>oslc2cli</b>, then press <b>enter</b>. For example: <b>oslc2cli -r test_sources.zip</b></p>
+                            <p class="command_txt">or type <b>java -jar oslc2.jar [arguments]</b> then press <b>enter</b>. Run with "-h" argument to see the commandline help screen</p>
+                        </li>
+                        <li>
+                            <p class="command_txt"><b>Under Linux or MAC: </b></p>
+                            <p class="command_txt">Start a terminal screen</p>
+                            <p class="command_txt">go to the directory where you unpack the downloaded package</p>
+                            <p class="command_txt">type <b>./oslc2cli</b> then press <b>enter</b>. For example: <b>./oslc2cli -r test_sources.zip</b></p>
+                            <p class="command_txt">or type <b>java -jar oslc2.jar [arguments]</b> then press <b>enter</b>. Run with "-h" argument to see the commandline help screen</p>
+                        </li>
+                    </ol>
+                </td>
+            </tr>
+        </table>
+        <p class="cmd">Back to <a href="#top"/>Top</p>
+        
+        <p class="heading2"><a name="start_2"/>1.2 Start GUI Application</p>
+        <table width="600px" border="0" cellpadding="1" cellspacing="1">
+            <tr class="row_grey">
+                <td>
+                    <ol type="square">
+                        <li class="normal">
+                            <p class="command_txt"><b>Under Windows</b></p>
+                            <p class="command_txt">go to the directory where you unpack the downloaded package, and double click <b>oslc2gui.bat</b></p>
+                            <p class="command_txt">or type <b>java -jar oslc2.jar</b>, then press <b>enter</b></p>
+                        </li>
+                        <li class="normal">
+                            <p class="command_txt"><b>Under Linux or MAC</b></p>
+                            <p class="command_txt">Start a terminal screen</p>
+                            <p class="command_txt">go to the directory where you unpack the downloaded package</p>
+                            <p class="command_txt">type <b>./oslc2gui</b>, then press <b>enter</b></p>
+                            <p class="command_txt">or type <b>java -jar oslc2.jar</b>, then press <b>enter</b></p>
+                        </li>
+                    </ol>
+                </td>
+            </tr>
+        </table>
+        <p class="cmd">Back to <a href="#top"/>Top</p>
+        
+        <p class="heading1"><a name="command"></a>2. Commandline Guide</p>
+        <p class="normal">Basic usage: <b>oslc2cli.bat  [options]   [source file / directory / file package]</b></p>
+        <p><span class="command_txt">Current supported package types: <b>zip</b>, <b>jar</b>, <b>tar</b>, <b>tar.gz</b>, <b>tgz</b></span></p>
+        <br/><br/>
+        
+        <table border="0" cellpadding="1" cellspacing="1" width="600px" class="table_txt">
+            <thead class="border_blue">
+                <tr>
+                    <th width="10%" align="left">Option</th>
+                    <th width="90%" align="left">Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>-h</td>
+                    <td>List all the command line options (help text)</td>
+                </tr>
+                <tr class="row_grey">
+                    <td>-r</td>
+                    <td>Output file references</td>
+                </tr>
+                <tr>
+                    <td>-s</td>
+                    <td>Show a summary of found licenses</td>
+                </tr>
+                <tr class="row_grey">
+                    <td>-t</td>
+                    <td>Show found tags</td>
+                </tr>
+                <tr>
+                    <td>-v</td>
+                    <td>Verbose mode for output</td>
+                </tr>
+                <tr class="row_grey">
+                    <td>-v -v</td>
+                    <td>More verbose mode for output</td>
+                </tr>
+                <tr>
+                    <td>-x</td>
+                    <td>PATH: ignore PATH inside package (if your package has a directory 'docs/', use "-x docs" to ignore it from processing)</td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <p class="cmd">Back to <a href="#top"/>Top</p>
+        
+        <p class="heading1"><a name="gui"></a>3. GUI Guide</p>
+        <p class="heading2"><a name="gui_1"/>3.1 Open a Source file / Directory / Source package</p>
+        <p class="normal">The source file can be opened in 2 ways:</p>
+        <p><img alt="Open a source file, a directory, or a package" src="imgs/open_file_package1.jpg"/></p>
+        <p><img alt="Open a source file, a directory, or a package" src="imgs/open_file_package2.jpg"/></p>
+        <p class="cmd">Back to <a href="#top"/>Top</p>
+        
+        <p class="heading2"><a name="gui_2"/>3.2 The Summary Pane</p>
+        <p class="normal">After opening a source package, the Overview pane shows the summary of the package</p>
+        <ul type="square" title="Overview pane" class="normal">
+            <li>The number of source file in the package</li>
+            <li>The number of all files in the package</li>
+            <li>Distinct licenses found</li>
+            <li>The number of local / reference license conflicts found</li>
+            <li>The number of global license conflicts found</li>
+        </ul>
+        <p><img alt="The Summary window with detailed information" src="imgs/summary_window.jpg"/></p>
+        <p class="normal">Click on <b>Details</b>, then the summary window prompts with the following information:</p>
+        <ul type="square" title="Detailed summary window" class="normal">
+            <li>The list of source files identified under each license</li>
+            <li>The list of global conflicts found in the package</li>
+        </ul>
+        <p><img alt="The detailed information on the license match" src="imgs/detail_license_match.jpg"/></p>
+        <p><img alt="The detailed information on the license conflicts" src="imgs/detail_license_conflicts.jpg"/></p>
+        <p class="cmd">Back to <a href="#top"/>Top</p>
+        
+        <p class="heading2"><a name="gui_3"/>3.3 The Source Tree Browser Pane</p>
+        <p><img alt="The source file pane" src="imgs/source_tree_pane.jpg"></p>
+        <p class="normal">The filter list box contains the filtering options to display the source tree and its related information:</p>
+        <ul title="The filters of the source tree pane" style="square" class="normal">
+            <li><b>All files</b> - shows all the files in the source package</li>
+            <li><b>Conflicting files</b> - shows all the source files with license conflicts. An icon is displayed for the directories and the files that has conflicts. The imports that the current file is conflicting with is shown after <b>red</b> arrows. </li>
+            <li><b>Licensed files</b> - shows all the source files with license information identified. User can also filter source files based on their license type.</li>
+            <li><b>Missing License</b> - shows all the source files with no license identified</li>
+        </ul>
+        <p><img src="imgs/license_conflicts_sourcetree_pane.jpg" alt="Indication of license conflicts"/></p>
+        <p class="normal"><b>Show References</b> - when this option is selected, the source file imports and includes are displayed in the source tree.</p>
+        <p class="normal">In Java source file view: 
+        <ul style="square">
+        <li><font color="green"><b>Green arrow</b></font> means that the link can be followed by <b>double click</b> on the references.</li>
+        <li><font color="yellow"><b>Yellow arrow</b></font> means the imported file is outside the package. </li>
+        <li><font color="red"><b>Red arrow</b></font> means that there is a license conflict with the imported file.</li>
+        </ul></p>
+        <p class="cmd">Back to <a href="#top"/>Top</p>
+        
+        <p class="heading2"><a name="gui_4"/>3.4 The File Display Pane</p>     
+        <p class="normal">The file display pane provides the following features:</p>
+        <ul class="normal" style="square" title="Features provided by the file display pane">
+            <li>Highlighting the license match text, see mark <b>(1)</b></li>
+            <li>Show license matching percentage against the original license text, see mark <b>(2)</b></li>
+            <li>Show license matching details, see mark <b>(3)</b></li>
+            <li>Show the license conflict detailed information with imports if exists, see mark <b>(4)</b></li>
+        </ul>
+        <p><img src="imgs/source_file_viewing.jpg" alt=""/></p>
+        <p class="normal">When <b>Details</b> is available, click on it to see detailed information in the prompt window.</p>
+        <p><img src="imgs/license_detail_1.jpg" alt="The detailed matching information as color to matched license, etc"/></p>
+        <p><img src="imgs/license_detail_2.jpg" alt="The free form field, such as author and year, is indentified and displayed"/></p>
+        
+        <p class="bold">To close a tab or print a file, right click on the tab</p>
+        <p><img src="imgs/Print_close_tab_function.jpg" alt="Options for printing the file, or closing the tab" /></p>
+        <p class="cmd">Back to <a href="#top"/>Top</p>
+        
+        <p class="heading2"><a name="gui_5"/>3.5 Other Options</p>
+        <p class="bold">File Operations:</p>
+        <p><img src="imgs/Other_option_2.jpg" alt="File operation options" /></p>
+        <p class="bold">View Options:</p>
+        <p class="bold"><img src="imgs/Other_option_1.jpg" alt="displaying the overview pane, and wordwrap option in displaying the files" /></p>
+        <p class="bold">Help Pages:</p>
+        <p><img src="imgs/Other_option_3.jpg" alt="The Help page and About for this application" /></p>
+        
+        <p class="cmd">Back to <a href="#top"/>Top</p>
+        
+        <p class="heading1"><a name="set_env"></a>4. Java VM Settings</p>
+        <p class="normal">When processing large software packages (tens of thousands of files), it might be usefull to increase the memory allocated for Java virtual machine.</p>
+        <p class="normal">Memory allocation can be set by following arguments:</p>
+        <table width="600px" border="0" cellpadding="10" cellspacing="1">
+            <tr class="row_grey">
+                <td>
+                    <p class="command_txt"><b>java -Xms150M -Xmx150M</b></p>
+                </td>
+            </tr>
+        </table>
+        <p class="normal">Where 150 can be increased if necessary.</p>
+        
+        <p class="cmd">Back to <a href="#top"/>Top</p>
+        
+        <p class="heading1"><a name="match">5. License Matching Algorithm</a></p>
+        <p class="normal">The program finds license matches by identifying the longest common substring 
+        between source file's comments and a known license text. A match is reported to the user if it is 
+        length is longer that 10 words and 10% of the license text and if a better match in some other 
+        license is not overlapping the match. Non-alphanumeric characters are ignored in license matching. 
+        Match confidence-% is calculated by dividing the match length by license text length. </p>
+        
+        <p class="normal">Forbidden phrases (identified by -f in the license name) are reported if they have a full
+        (100%) match. They are not reported if all licenses found in the file contain the
+        forbidden phrase as part of their normal license text. </p>
+
+        <p class="normal">Exceptions to a license (identified by -m in the license name) are reported if exception
+        text is found and if the parent license is also found in a same source file. </p>
+       
+        <p class="cmd">Back to <a href="#top"/>Top</p>
+        
+        <p class="heading1"><a name="license_name">6. License Naming Convention</a></p>
+        <p class="normal">License files must follow the naming convention below to make itself correctly recognized:</p>
+        <table width="600px" border="0" cellpadding="10" cellspacing="1">
+            <tr class="row_grey">
+                <td>
+                    <p class="command_txt"><b>name [-version] [-only|]-[l|s|m|f|k][-module_name].[txt|meta]</b></p></br>
+                    <p class="command_txt">where:</p>
+                    <p class="command_txt">only	= usage of future versions of the license is not permitted (for example: gpl-2.0-only)</p>
+                    <p class="command_txt">s = short version of the license text (typically located inside source files)</p>
+                    <p class="command_txt">m = file contains a license module (exception)</p>
+                    <p class="command_txt">f = file contains a forbidden phrase</p>
+                    <p class="command_txt">k = file contains a linux kernel-specific license</p>
+                </td>
+            </tr>
+        </table>
+        
+        <p class="cmd">Back to <a href="#top"/>Top</p>
+        
+    </body>
+</html>

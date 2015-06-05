@@ -1,0 +1,14 @@
+checker
+checker.event
+checker.filepackage
+checker.filepackage.tar
+checker.gui
+checker.gui.combo
+checker.gui.filter
+checker.gui.print
+checker.gui.table
+checker.gui.tree
+checker.license
+checker.matching
+checker.repository
+checker.sourceparser
